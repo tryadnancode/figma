@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.redAccent,
+        backgroundColor:  Color(0xFF4B2EA6),
       ),
       body: Center(
         child: Padding(
@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 40),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor:  Color(0xFF4B2EA6),
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),

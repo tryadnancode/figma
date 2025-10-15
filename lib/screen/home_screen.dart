@@ -203,11 +203,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRestaurantList(BuildContext context) {
-    return SizedBox(
-      height: 280,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(), // prevent nested scroll
         itemCount: restaurants.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1, // 2 items per row
+          crossAxisSpacing: 16, // horizontal space
+          mainAxisSpacing: 16, // vertical space
+        ),
         itemBuilder: (context, index) {
           return _buildRestaurantCard(context, restaurants[index]);
         },
@@ -223,64 +229,63 @@ class _HomeScreenState extends State<HomeScreen> {
           MaterialPageRoute(builder: (context) => const AddFoodItemScreen()),
         );
       },
-      child: Container(
-        width: 200,
-        margin: const EdgeInsets.only(left: 16),
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.asset(
-                  'assets/images/${r.image}.png',
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 3,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              child: Image.asset(
+                'assets/images/${r.image}.png',
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(r.name ?? "",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.location_on, size: 14, color: Colors.grey[600]),
-                        const SizedBox(width: 4),
-                        Expanded(
-                            child: Text(r.location ?? "",
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[700]))),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Terrace View',
-                            style: TextStyle(fontSize: 11, color: Colors.green)),
-                        Row(
-                          children: [
-                            const Icon(Icons.star, color: Colors.orange, size: 16),
-                            const SizedBox(width: 4),
-                            Text(r.rating.toString(),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(r.name ?? "",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14)),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(Icons.location_on,
+                          size: 12, color: Colors.grey[600]),
+                      const SizedBox(width: 4),
+                      Expanded(
+                          child: Text(r.location ?? "",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 11, color: Colors.grey[700]))),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Terrace View',
+                          style: TextStyle(fontSize: 10, color: Colors.green)),
+                      Row(
+                        children: [
+                          const Icon(Icons.star, color: Colors.orange, size: 14),
+                          const SizedBox(width: 2),
+                          Text(r.rating.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
